@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import *
 from tkinter.ttk import *
 from tkinter import *
+from tkinter import scrolledtext
 
 # libraries that are used to make the tool work
 from googlesearch import search
@@ -153,13 +154,28 @@ def main(screen):
                             # warn.place(relx=0.3,rely=0.5)
                         else:
                             lst2.append(summary)
+                    
+                    if summary !=''or summary == 0:
+                        frame2 = Frame(frame,width=660,height=250,bg='white')#bg='#101517')
+                        frame2.place(x=20,y=190)
+                        text = scrolledtext.ScrolledText(frame2, wrap=tk.WORD, width=80, height=20)#,state='disabled')
+                        text.place(relx=0.5,rely=0.5,anchor='center')
+                        # text.pack()
+                        text.configure(bg="#101517", fg="#57a1f8")
+                        # Insert each item from the list into the Text widget
+                        for item in lst2:
+                            if item == '' or item == 0:
+                                text.insert(tk.END, "No summary was able to be provided")
+                            else:
+                                text.insert(tk.END, item + "\n")
+                        # result = tk.Label(frame2,text = "\n".join(lst2),fg='#57a1f8',bg='#101517',font=('Times new roman',7)).place(relx=0.5,rely=0.5,anchor='center')
 
-                    result = tk.Label(frame,text = "\n".join(lst2),fg='#57a1f8',bg='#101517',font=('Times new roman',13,'bold')).place(relx=0.5,rely=0.5,anchor='center')
+                    # result = tk.Label(frame,text = "\n".join(lst2),fg='#57a1f8',bg='#101517',font=('Times new roman',10)).place(relx=0.5,rely=0.5,anchor='center')
                     # result.pack()
                             # result.place(relx=0.3,rely=0.5)
                         
 
-                    Button(frame,width=15,pady=7,text='Back',bg='#57a1f8',fg='#101517',border=0,command=adverse_media).place(relx=0.5,rely=0.85,anchor='center')# Go back to Adverse media page
+                    Button(frame,width=15,pady=7,text='Back',bg='#57a1f8',fg='#101517',border=0,command=adverse_media).place(relx=0.5,rely=0.95,anchor='center')# Go back to Adverse media page
 
 
 

@@ -8,11 +8,26 @@ import pandas as pd
 import numpy as np
 
 # Importing the models Pipelines
-import Transformer_API as API
-import RNN
+import LSTM_API as lstm
 
+def RA_connect(name):
+
+    def capitalize_name(name_cap):
+        name_parts = name_cap.split()
+        capitalized_parts = [part.capitalize() for part in name_parts]
+        capitalized_name = ' '.join(capitalized_parts)
+
+
+        return capitalized_name
+    
+    l = lstm.API_RNN()
+    df = [name]
+    rst1 = l.call(pd.DataFrame(np.array(df)))
+    # rst = capitalize_name(rst1)
+    return rst1[0]
 
 def main(screen):
+    
     def name_matching():
                 frame=Frame(screen,width=775,height=500,bg='#101517')
                 frame.place(x=150,y=0) 
@@ -90,9 +105,8 @@ def main(screen):
                     last = user2.get()
                     middle = user3.get()
 
-                    # choose which model to use:
-                    # name = API.API_Transformer() # <- model Transformer
-                    name = RNN.API_RNN() # <- model RNN
+                    # initialize the model
+                    name = lstm.API_RNN()
 
                     if middle == '' or middle == 'Middle Name': 
                         fullname1 = first+' '+last
@@ -106,16 +120,20 @@ def main(screen):
                     # this part is for RNN
                     df = [fullname]
                     rst1 = name.call(pd.DataFrame(np.array(df)))
-                    rst = capitalize_name(rst1)
+                    rst = []
+                    for i in range(len(rst1)):
+                        rst.append(capitalize_name(rst1[i]))
+                    # rst = str(rst1)
 
                     # Results output page
                     title1 = Label(frame2,text='Original Name',fg='#57a1f8',bg='#101517',font=('times new roman',15,'bold'))
+
                     title1.place(x=100,y=100)
                     title2 = Label(frame2,text='Matched Name',fg='#57a1f8',bg='#101517',font=('times new roman',15,'bold'))
                     title2.place(x=400,y=100)
                     heading.place(relx=0.4,rely=0)
 
-                    generated_names = tk.Label(frame2, text=rst,bg='#101517',fg="#57a1f8",font=('Times new roman',15,'bold'))
+                    generated_names = tk.Label(frame2, text="\n".join(rst[:3]),bg='#101517',fg="#57a1f8",font=('Times new roman',15))
                     generated_names.place(x=400,y=150)
                     # generated_names.pack()
                     
