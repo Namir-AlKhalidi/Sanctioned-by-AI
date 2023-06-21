@@ -29,7 +29,7 @@ step 1: Download all the files in the repository.
 step 2: create a new python environment in your local IDE.
 step 3: install the requirements.txt file. to do that go to the terminal, run the following command in your newly created python environment: 
 pip install -r requirements.txt
-step 4: once the environment is fully set up, run the main.py folder and you are done.
+step 4: once the environment is fully set up, run the Grad UI.py folder and you are done.
 
 ## Usage
 
